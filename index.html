@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unsere Wohnungsbewerbung</title>
+  <meta name="description" content="Eine herzliche und persönliche Vorstellung von Amar Vishal & Partnerin." />
+  <style>
+    :root{
+      --primary:#005bb5;
+      --secondary:#ffffff;
+      --accent:#ffd700;
+      --bg:#0b1220;
+      --text:#e6ecff;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;scroll-behavior:smooth}
+    a{color:var(--accent);text-decoration:none}
+    .container{max-width:1060px;margin:0 auto;padding:24px}
+    .hero{
+      position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden;
+      background: radial-gradient(1200px 600px at 80% -20%, rgba(255,215,0,0.08), transparent),
+                  radial-gradient(900px 560px at 10% 120%, rgba(0,91,181,0.18), transparent),
+                  linear-gradient(180deg,#0b1220 0%,#0a0f1a 100%);
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+    canvas#fx{position:absolute;inset:0;z-index:0}
+    .parallax-layer{position:absolute;inset:auto;pointer-events:none;opacity:.14;filter:blur(1px)}
+    .p1{top:8%;left:6%;font-size:18rem;color:var(--accent)}
+    .p2{bottom:10%;right:10%;font-size:12rem;color:#4ea1ff}
+    .p3{top:20%;right:30%;font-size:16rem;color:#9ccaff}
+    .hero-inner{position:relative;z-index:2;width:100%}
+    .badge{display:inline-block;padding:6px 10px;border:1px solid rgba(255,255,255,0.2);
+      border-radius:999px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.9;background:rgba(255,255,255,0.03)}
+    h1{font-size:clamp(28px,5vw,54px);line-height:1.05;margin:14px 0 10px;color:#fff}
+    .subtitle{font-size:clamp(16px,2.1vw,20px);opacity:.9;max-width:820px}
+    .cta-row{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+    .btn{padding:12px 18px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.06);color:#fff;cursor:pointer;transition: transform 0.2s ease;}
+    .btn.primary{background:linear-gradient(135deg,var(--primary),#0d74d1);border:none;box-shadow:0 10px 24px rgba(13,116,209,0.35)}
+    .btn:hover{transform:translateY(-2px)}
+    section{position:relative;padding:64px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+    h2{font-size:clamp(22px,3vw,32px);margin:0 0 8px}
+    .lead{opacity:.9;margin:0 0 18px;font-size:18px}
+    .card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px}
+    .grid{display:grid;gap:16px;grid-template-columns:repeat(12,1fr)}
+    .col-4{grid-column:span 4}
+    .col-6{grid-column:span 6}
+    .col-8{grid-column:span 8}
+    .col-12{grid-column:span 12}
+    @media (max-width:900px){
+      .col-4,.col-6,.col-8,.col-12{grid-column:span 12}
+      .p1,.p2,.p3{font-size:8rem}
+      .hero{min-height: auto; padding: 80px 0;}
+    }
+    ul{margin:8px 0 0 0; padding-left: 18px;}
+    li{margin:8px 0; line-height: 1.5;}
+    .fade-up{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+    .fade-up.revealed{opacity:1;transform:none}
+    footer{padding:40px 0;color:#95a3bf;font-size:14px;text-align:center}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}
+    .accent{color:var(--accent)}
+    .tiny{opacity:.8;font-size:12px}
+  </style>
+</head>
+<body>
+  <!-- 
+    ==================================================================
+    CONFIGURATION JSON 
+    Alle Texte sind hier zentral gespeichert.
+    ==================================================================
+  -->
+  <script id="site-config" type="application/json">
+  {
+    "meta": {
+      "title": "Unsere Bewerbung für ein neues Zuhause",
+      "subtitle": "Wir möchten uns von Herzen vorstellen und Ihnen zeigen, warum Ihr Mietobjekt bei uns in den besten Händen wäre.",
+      "backgroundEffect": "particles-stars",
+      "colorTheme": { "primary":"#005bb5", "secondary":"#ffffff", "accent":"#ffd700" }
+    },
+    "tenant": {
+      "names": "Amar Vishal & Partnerin",
+      "headline": "Ein harmonisches Zuhause und eine gute Nachbarschaft – das ist unser Wunsch.",
+      "story": [
+        "Düsseldorf ist für uns längst zur Heimat geworden. Meine Partnerin lebt und arbeitet hier seit über 5 Jahren, und wir fühlen uns beide tief in der Stadt verwurzelt.",
+        "Als Schulgruppenleiterin liegt meiner Partnerin das Wohl von Menschen sehr am Herzen – eine Eigenschaft, die sie auch im Privaten lebt. Ich stehe kurz vor dem Abschluss meines Maschinenbau-Masters und dem direkten Einstieg ins Berufsleben, voller Tatendrang und mit einer sicheren Perspektive.",
+        "Unser gemeinsames, stabiles Nettoeinkommen von 4.000 € aus festen Anstellungen gibt Ihnen die Gewissheit, dass die Miete stets pünktlich und zuverlässig bei Ihnen eingeht. Mit meinem baldigen Berufseinstieg wird unsere finanzielle Basis sogar noch komfortabler.",
+        "Für uns ist eine Wohnung mehr als nur vier Wände. Es ist ein Ort des Friedens, der Geborgenheit und des Respekts. Wir sind ruhige, rücksichtsvolle Menschen, die größten Wert auf ein gepflegtes Umfeld und ein herzliches Miteinander in der Hausgemeinschaft legen.",
+        "Wir suchen nicht nur eine Wohnung, sondern ein langfristiges Zuhause. Ein Ort, an dem wir uns für viele Jahre wohlfühlen und zu einer positiven, vertrauensvollen Hausgemeinschaft beitragen können."
+      ],
+      "hooks": {
+        "trust": [
+          "Offenheit und größte Verlässlichkeit",
+          "Feste Verwurzelung in Düsseldorf",
+          "Wir sind herzliche und ruhige Nachbarn"
+        ],
+        "stability": [
+          "Gesicherte Einkommen mit Wachstumsperspektive",
+          "Mietzahlungen sind für uns eine Selbstverständlichkeit",
+          "Wir behandeln Ihr Eigentum mit größter Sorgfalt"
+        ],
+        "fit": [
+          "Zentrale Lagen ideal für unseren Alltag",
+          "Ein wundervolles Nest für zwei Personen",
+          "Anpassungsfähig und flexibel"
+        ]
+      }
+    },
+    "cta": {
+      "title": "Lernen Sie uns persönlich kennen",
+      "contact": {
+        "name": "Amar Vishal",
+        "phone": "+49 152 5582 5941",
+        "email": "amarvishal01@gmail.com"
+      },
+      "footerNote": "Alle notwendigen Unterlagen wie Selbstauskunft, Schufa und Gehaltsnachweise haben wir bereits für Sie vorbereitet und senden sie Ihnen gerne umgehend zu."
+    }
+  }
+  </script>
+  <!-- ========= END OF CONFIGURATION ========= -->
+
+  <header class="hero">
+    <canvas id="fx" aria-hidden="true"></canvas>
+    <div class="parallax-layer p1">✦</div>
+    <div class="parallax-layer p2">✦</div>
+    <div class="parallax-layer p3">✦</div>
+    <div class="hero-inner container">
+      <span class="badge fade-up" data-reveal>Wohnungsbewerbung</span>
+      <h1 class="fade-up" data-reveal id="title">Unsere Geschichte</h1>
+      <p class="subtitle fade-up" data-reveal id="subtitle">Damit Ihre Wohnung in gute Hände kommt.</p>
+      <div class="cta-row fade-up" data-reveal>
+        <a class="btn primary" href="#story">Über uns</a>
+        <button class="btn" onclick="window.print()">Als PDF speichern</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="story">
+      <div class="container">
+        <h2 class="fade-up" data-reveal>Warum wir die richtigen Mieter für Sie sind</h2>
+        <p class="lead fade-up" data-reveal id="tenantHeadline"></p>
+
+        <div class="grid">
+          <div class="col-8">
+            <div class="card fade-up" data-reveal>
+              <ul id="storyList"></ul>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="card fade-up" data-reveal>
+              <div class="pill"><span>🤝</span><strong>Vertrauen & Verlässlichkeit</strong></div>
+              <ul id="hooksTrust"></ul>
+              <div class="pill" style="margin-top:10px;"><span>🌱</span><strong>Stabilität & Sicherheit</strong></div>
+              <ul id="hooksStability"></ul>
+              <div class="pill" style="margin-top:10px;"><span>🎯</span><strong>Ideale Mieter</strong></div>
+              <ul id="hooksFit"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <h2 class="fade-up" data-reveal id="ctaTitle">Wir freuen uns auf Ihre Nachricht</h2>
+        <div class="grid">
+          <div class="col-6">
+            <div class="card fade-up" data-reveal>
+              <p class="lead">Wir würden uns sehr freuen, von Ihnen zu hören und uns persönlich bei einer Besichtigung vorzustellen.</p>
+              <p><strong class="accent" id="cName"></strong><br/>
+              <a id="cPhone"></a><br/>
+              <a id="cEmail"></a></p>
+              <p class="tiny" id="footerNote"></p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="card fade-up" data-reveal>
+              <p>Sie können diese Seite ganz einfach als PDF speichern, um sie offline zu lesen.</p>
+              <p class="tiny">Nutzen Sie dafür den Button oben oder die Druckfunktion Ihres Browsers (<em>Datei → Drucken → Als PDF speichern</em>).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© <span id="year"></span> Persönliche Wohnungsbewerbung, mit Sorgfalt erstellt von Amar Vishal.</p>
+    </div>
+  </footer>
+
+  <script>
+  // --- Utility: read JSON config and populate the page ---
+  function populateContent() {
+    try {
+        const cfg = JSON.parse(document.getElementById('site-config').textContent);
+
+        // --- Meta and Theme ---
+        if (cfg.meta?.colorTheme){
+            const r = document.documentElement;
+            r.style.setProperty('--primary', cfg.meta.colorTheme.primary || '#005bb5');
+            r.style.setProperty('--secondary', cfg.meta.colorTheme.secondary || '#ffffff');
+            r.style.setProperty('--accent', cfg.meta.colorTheme.accent || '#ffd700');
+        }
+        document.title = cfg.meta?.title || document.title;
+        document.getElementById('title').textContent = cfg.meta?.title;
+        document.getElementById('subtitle').textContent = cfg.meta?.subtitle || '';
+
+        // --- Tenant Details ---
+        const t = cfg.tenant || {};
+        document.getElementById('tenantHeadline').textContent = t.headline || '';
+        const storyEl = document.getElementById('storyList');
+        storyEl.innerHTML = '';
+        (t.story || []).forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = item;
+            storyEl.appendChild(li);
+        });
+
+        const fillList = (elementId, items) => {
+            const el = document.getElementById(elementId);
+            el.innerHTML = ''; // Clear previous entries
+            if (!items || items.length === 0) return;
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                el.appendChild(li);
+            });
+        };
+        fillList('hooksTrust', t.hooks?.trust);
+        fillList('hooksStability', t.hooks?.stability);
+        fillList('hooksFit', t.hooks?.fit);
+
+        // --- CTA / Contact ---
+        const c = cfg.cta || {};
+        if (c.title) document.getElementById('ctaTitle').textContent = c.title;
+        const contact = c.contact || {};
+        document.getElementById('cName').textContent = contact.name || '';
+        const phone = contact.phone || '';
+        const email = contact.email || '';
+        const pA = document.getElementById('cPhone');
+        pA.textContent = phone;
+        pA.href = `tel:${phone.replace(/\s+/g, '')}`;
+        const eA = document.getElementById('cEmail');
+        eA.textContent = email;
+        eA.href = `mailto:${email}`;
+        document.getElementById('footerNote').textContent = c.footerNote || '';
+
+        // --- Footer Year ---
+        document.getElementById('year').textContent = new Date().getFullYear();
+    } catch (error) {
+        console.error("Fehler beim Laden der Konfiguration:", error);
+        document.body.innerHTML = '<p style="color:white; text-align:center; padding-top: 50px;">Ein Fehler ist aufgetreten. Bitte überprüfen Sie die JSON-Konfiguration.</p>';
+    }
+  }
+  
+  // --- FX: Background Particles Animation ---
+  (function(){
+    const canvas = document.getElementById('fx');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w, h, dpr = Math.max(1, window.devicePixelRatio || 1);
+    const particles = [];
+    const cfgFx = { count: 140, maxR: 2.2, minR: 0.6, maxV: 0.35 };
+    
+    function resize(){
+      w = canvas.clientWidth = canvas.parentElement.clientWidth;
+      h = canvas.clientHeight = Math.max(canvas.parentElement.clientHeight, 480);
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+    }
+    window.addEventListener('resize', resize, {passive:true});
+    
+    function spawn(){
+      particles.length = 0;
+      for(let i=0; i < cfgFx.count; i++){
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: cfgFx.minR + Math.random() * (cfgFx.maxR - cfgFx.minR),
+          vx: (Math.random() - 0.5) * cfgFx.maxV,
+          vy: (Math.random() - 0.2) * cfgFx.maxV,
+          a: 0.5 + Math.random() * 0.5
+        });
+      }
+    }
+
+    let mx = w/2, my = h/2;
+    window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; }, {passive:true});
+
+    function step(){
+      ctx.clearRect(0,0,w,h);
+      
+      ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+      ctx.lineWidth = 1;
+      for(let i=0; i < particles.length; i++){
+        for(let j=i+1; j < particles.length; j++){
+          const p1 = particles[i];
+          const p2 = particles[j];
+          const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+          if(dist < 110){
+            ctx.globalAlpha = 1 - (dist / 110);
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+        }
+      }
+      ctx.globalAlpha = 1;
+
+      for(const p of particles){
+        p.x += p.vx; 
+        p.y += p.vy;
+        if(p.x < -10) p.x = w + 10; if(p.x > w + 10) p.x = -10;
+        if(p.y < -10) p.y = h + 10; if(p.y > h + 10) p.y = -10;
+        
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        const rad = ctx.createRadialGradient(p.x - 1, p.y - 1, 0, p.x, p.y, p.r * 2.5);
+        rad.addColorStop(0, 'rgba(255,255,255,0.95)');
+        rad.addColorStop(1, 'rgba(255,215,0,0.35)');
+        ctx.fillStyle = rad;
+        ctx.fill();
+      }
+      requestAnimationFrame(step);
+    }
+    
+    resize();
+    spawn();
+    requestAnimationFrame(step);
+  })();
+
+  // --- Parallax Illusion for Hero Section ---
+  (function(){
+    const layers = Array.from(document.querySelectorAll('.parallax-layer'));
+    if(layers.length === 0) return;
+    let cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+    window.addEventListener('mousemove', e => {
+      const dx = (e.clientX - cx) / cx;
+      const dy = (e.clientY - cy) / cy;
+      layers.forEach((el, i) => {
+        const depth = (i + 1) * 8;
+        el.style.transform = `translate(${dx * depth * -1}px, ${dy * depth * -1}px)`;
+      });
+    }, {passive:true});
+  })();
+
+  // --- Reveal Elements on Scroll ---
+  (function(){
+    const els = document.querySelectorAll('[data-reveal]');
+    if(els.length === 0) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(ent => {
+        if(ent.isIntersecting){
+          ent.target.classList.add('revealed');
+          io.unobserve(ent.target);
+        }
+      });
+    }, {threshold: 0.1});
+    els.forEach(el => {
+        el.classList.add('fade-up');
+        io.observe(el)
+    });
+  })();
+
+  // --- Initial Population of Content ---
+  document.addEventListener('DOMContentLoaded', populateContent);
+  </script>
+</body>
+</html>
